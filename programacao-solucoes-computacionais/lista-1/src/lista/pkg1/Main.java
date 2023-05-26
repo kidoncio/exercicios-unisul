@@ -4,7 +4,7 @@
  */
 package lista.pkg1;
 
-import java.io.IOException;
+import java.lang.reflect.Method;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,25 +18,21 @@ public class Main {
      */
     public static void main(String[] args) {
         String input = JOptionPane.showInputDialog("Digite o número do exercício desejado:");
-        double numeroDoExercicio = Double.parseDouble(input);
+        int numeroDoExercicio = Integer.parseInt(input);
+        
+        String className = "Exercicio" + numeroDoExercicio;
 
         try {
-            Process processo = Runtime.getRuntime().exec("java " + "./Exercicio" + numeroDoExercicio + ".java");
-            int status = processo.waitFor();
+            Class<?> classe = Class.forName("lista.pkg1." + className);
+            Method metodoMain = classe.getMethod("main", String[].class);
 
-            String mensagem;
+            String[] argumentos = {};
 
-            if (status == 0) {
-                mensagem = "O arquivo Java foi executado com sucesso!";
-            } else {
-                mensagem = "O arquivo não foi executado corretamente";
-            }
-
-            System.out.println(mensagem);
-        } catch (IOException e) {
-            System.out.println("Erro ao executar o arquivo Java: " + e.getMessage());
-        } catch (InterruptedException e) {
-            System.out.println("A execução do arquivo Java foi interrompida: " + e.getMessage());
+            metodoMain.invoke(null, (Object) argumentos);
+        } catch (ClassNotFoundException e) {
+            System.out.println("O exercício " + className + " não foi encontrado");
+        } catch (Exception e) {
+            System.out.println("Erro ao instanciar o exercício");
         }
     }
 
