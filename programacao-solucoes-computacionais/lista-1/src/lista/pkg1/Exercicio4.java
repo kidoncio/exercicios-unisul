@@ -10,21 +10,18 @@ import javax.swing.JOptionPane;
  *
  * @author lucas
  */
-public class Exercicio1 {
-
+public class Exercicio4 {
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        String input = JOptionPane.showInputDialog("Digite o valor do lado do quadrado: ");
-        double lado = Double.parseDouble(input);
+        String input = JOptionPane.showInputDialog("Digite um número inteiro:");
+        int numero = Integer.parseInt(input);
 
-        double perimetro = lado * 4;
-        double area = lado * lado;
+        int digitoDezenas = (numero / 10) % 10;
 
-        String mensagemFeedback = "Perímetro do quadrado: " + perimetro + "\n" + "Área do quadrado: " + area;
+        String mensagemFeedback = "O dígito das dezenas é: " + digitoDezenas;
 
         JOptionPane.showMessageDialog(null, mensagemFeedback);
     }
-
 }
